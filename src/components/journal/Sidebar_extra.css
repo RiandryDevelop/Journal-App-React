@@ -1,0 +1,47 @@
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  color: #000;
+  -webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  -moz-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  margin: 50px auto;
+}
+
+.preload::after {
+  content: "";
+  background-image: url("../../../public/assets/flashlight.png");
+}
+
+.dark_mode {
+  align-self: center;
+  width: 50px;
+  height: 24px;
+  border-radius: 12px;
+  background-image: url("../../../public/assets/dark_mode.png");
+  background-size: 76px 24px;
+  background-position: -26px 0;
+  transition: 100ms;
+}
+
+.dark_mode:hover {
+  cursor: pointer;
+}
+
+body.dark {
+  background-color: #000;
+  background-image: url("../../../public/assets/flashlight.png");
+  background-repeat: no-repeat;
+  background-size: 500px 500px;
+  opacity: 0.3;
+}
+body.dark .dark_mode {
+  background-position: 0 0;
+}
