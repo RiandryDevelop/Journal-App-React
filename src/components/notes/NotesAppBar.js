@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startSaveNote, startUploading } from "../../actions/notes";
 
+import DateTimePicker from "react-datetime-picker";
 import moment from "moment";
 
 export const NotesAppBar = () => {
   const dispatch = useDispatch();
   const { active } = useSelector((state) => state.notes);
   const noteDate = moment(active.date);
+  const [dateStart, setDateStart] = useState(noteDate.toDate());
+  const [formValues, setFormValues] = useState(active);
 
   const handleSave = () => {
     dispatch(startSaveNote(active));
+    dispatch(startSaveNote(formValues)); ///testing func
   };
 
   const handlePictureClick = () => {
@@ -24,9 +28,24 @@ export const NotesAppBar = () => {
     }
   };
 
+  const handleDateChange = (e) => {
+    setDateStart(e.getTime());
+    setFormValues({
+      ...formValues,
+      date: e.getTime(),
+    });
+ 
+  };
+
   return (
     <div className="notes__appbar">
-      <span>{noteDate.format("MMMM Do YYYY")}</span>
+      <div className="form-group">
+        <DateTimePicker
+          onChange={handleDateChange}
+          value={dateStart}
+          className="form-control"
+        />
+      </div>
 
       <input
         id="fileSelector"

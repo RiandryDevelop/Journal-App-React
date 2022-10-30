@@ -40,7 +40,7 @@ body.dark {
   background-image: url("../../../public/assets/flashlight.png");
   background-repeat: no-repeat;
   background-size: 500px 500px;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 body.dark .dark_mode {
   background-position: 0 0;

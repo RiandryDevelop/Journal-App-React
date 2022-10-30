@@ -31,14 +31,27 @@ export const NoteModal = ({ url }) => {
 
   //  Change image event
   const handleChangeFile = () => {
-    document.querySelector("#fileSelector").click();
+    let isDelete = window.confirm(`Are you sure you want to change the image?`);
+
+    if (isDelete) {
+      document.querySelector("#fileSelector").click();
+    } else {
+      return;
+    }
   };
 
   //  Delete image event
   const handleDeletingFile = async (e) => {
+    let isDelete = window.confirm(`Are you sure you want to delete the image?`);
     e.preventDefault();
     fileDelete(active.url);
-    dispatch(startDeleteNoteUrl(active));
+
+    if (isDelete) {
+      dispatch(startDeleteNoteUrl(active));
+    } else {
+      return;
+    }
+
     closeModal();
   };
   return (
@@ -55,12 +68,16 @@ export const NoteModal = ({ url }) => {
         <img src={url} className="card-img-top" alt="... " />
         <div className="card-body">
           <h5 className="card-title">EDIT FILE</h5>
-          <button className="btn btn-successfully" onClick={handleChangeFile}>
-            Change File
-          </button>
-          <button className="btn btn-danger" onClick={handleDeletingFile}>
-            Delete File
-          </button>
+          <div className="buttons-modal-container">
+            <button className="btn btn-successfully" onClick={handleChangeFile}>
+              <i className="fa-solid fa-file-import"></i>
+              Change File
+            </button>
+            <button className="btn btn-danger" onClick={handleDeletingFile}>
+              <i className="fa-regular fa-trash-can"></i>
+              Delete File
+            </button>
+          </div>
         </div>
       </div>
     </Modal>

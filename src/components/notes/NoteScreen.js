@@ -75,7 +75,8 @@ export const NoteScreen = () => {
       </div>
 
       <NoteModal url={note.url} />
-      <button className="btn btn-danger" onClick={handleDelete}>
+      <button className="btn btn-danger delete-file" onClick={handleDelete}>
+        <i className="fa-regular fa-trash-can"></i>
         Delete
       </button>
     </div>
