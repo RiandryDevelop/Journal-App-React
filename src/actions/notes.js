@@ -16,7 +16,6 @@ export const startNewNote = () => {
       title: "",
       body: "",
       date: now.toDate().getTime(),
-      dateLabel: true,
     };
 
     try {
@@ -145,14 +144,6 @@ export const startUploadingDate = (time) => {
 
     dispatch(startSaveNote(activeNote));
     Swal.close();
-  };
-};
-export const startUploadingDateLabel = (timeLabel) => {
-  return async (dispatch, getState) => {
-    const { active: activeNote } = getState().notes;
-
-    activeNote.dateLabel = timeLabel;
-    dispatch(startSaveNote(activeNote));
   };
 };
 

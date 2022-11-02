@@ -4,7 +4,6 @@ import {
   startSaveNote,
   startUploading,
   startUploadingDate,
-  startUploadingDateLabel,
 } from "../../actions/notes";
 
 import DateTimePicker from "react-datetime-picker";
@@ -14,11 +13,11 @@ export const NotesAppBar = () => {
   const dispatch = useDispatch();
   const { active } = useSelector((state) => state.notes);
   const [dateStart, setDateStart] = useState(active.date);
-  const [isAM, setisAM] = useState(active.dateLabel);
   const [formValues, setFormValues] = useState(active);
 
   const handleSave = () => {
-    dispatch(startSaveNote(active));
+    dispatch(startSaveNote(formValues));
+    dispatch(startUploadingDate(formValues.date));
   };
 
   const handlePictureClick = () => {
@@ -39,16 +38,6 @@ export const NotesAppBar = () => {
       ...formValues,
       date: eventTime,
     });
-    dispatch(startUploadingDate(formValues.date));
-  };
-  const handleAMPM = (e) => {
-    e.preventDefault();
-    setisAM(!isAM);
-    setFormValues({
-      ...formValues,
-      dateLabel: isAM,
-    });
-    dispatch(startUploadingDateLabel(formValues.dateLabel));
   };
   return (
     <div className="notes__appbar">
@@ -58,10 +47,9 @@ export const NotesAppBar = () => {
           value={moment(dateStart).toDate()}
           className="form-control"
           amPmAriaLabel="AM"
-          format="y-MM-dd h:mm"
+          format="dd-MMM-yy hh:mm a "
           clockClassName="class1 class2"
         />
-        <button onClick={handleAMPM}>{isAM ? <p>AM</p> : <p>PM</p>}</button>
       </div>
 
       <input
