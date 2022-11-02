@@ -4,6 +4,9 @@ import { db, firebase } from "../firebase/firebase-config";
 import { types } from "../types/types";
 import { loadNotes } from "../helpers/loadNotes";
 import { fileUpload } from "../helpers/fileUpload";
+import moment from "moment";
+
+const now = moment();
 
 export const startNewNote = () => {
   return async (dispatch, getState) => {
@@ -12,7 +15,8 @@ export const startNewNote = () => {
     const newNote = {
       title: "",
       body: "",
-      date: new Date().getTime(),
+      date: now.toDate().getTime(),
+      dateLabel: true,
     };
 
     try {
@@ -83,8 +87,6 @@ export const startDeleteNoteUrl = (note) => {
     const noteToFirestore = { ...note };
     delete noteToFirestore.url;
 
-    // await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore);
-
     await db.doc(`${uid}/journal/notes/${note.id}`).update({
       url: firebase.firestore.FieldValue.delete(),
     });
@@ -124,6 +126,33 @@ export const startUploading = (file) => {
     dispatch(startSaveNote(activeNote));
 
     Swal.close();
+  };
+};
+export const startUploadingDate = (time) => {
+  return async (dispatch, getState) => {
+    const { active: activeNote } = getState().notes;
+
+    Swal.fire({
+      title: "Uploading Date ...",
+      text: "Please wait...",
+      allowOutsideClick: false,
+      onBeforeOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    activeNote.date = time;
+
+    dispatch(startSaveNote(activeNote));
+    Swal.close();
+  };
+};
+export const startUploadingDateLabel = (timeLabel) => {
+  return async (dispatch, getState) => {
+    const { active: activeNote } = getState().notes;
+
+    activeNote.dateLabel = timeLabel;
+    dispatch(startSaveNote(activeNote));
   };
 };
 
