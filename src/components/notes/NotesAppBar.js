@@ -60,7 +60,7 @@ export const NotesAppBar = () => {
         onChange={handleFileChange}
       />
 
-      <div>
+      <div className="save_file_Buttons">
         <button className="btn" onClick={handlePictureClick}>
           Picture
         </button>

@@ -11,9 +11,8 @@ import "./Sidebar_extra.css";
 export const Sidebar = () => {
   const dispatch = useDispatch();
   const { name } = useSelector((state) => state.auth);
-
+  console.log(name);
   const updateFlashlight = (e) => {
-    e.preventDefault();
     let style = document.body.style;
     style.backgroundPositionX = e.pageX - 250 + "px";
     style.backgroundPositionY = e.pageY - 250 + "px";
